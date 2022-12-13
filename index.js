@@ -49,6 +49,8 @@ for (const file of commandFiles) {
 }
 
 client.on('ready', () => {
+  client.user.setStatus('idle');
+  client.user.setActivity('with server chan 😘 UwU');
   console.log(`Logged in as ${client.user.tag}!`);
 });
 

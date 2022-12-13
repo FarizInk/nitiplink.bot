@@ -1,15 +1,15 @@
-const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
+const { SlashCommandBuilder, userMention } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('connect')
+		.setName('bind')
 		.setDescription('Bind your discord account to nitiplink account!')
 		.addStringOption(option =>
 			option.setName('token')
 				.setDescription('Enter token from your account.')),
 	async execute(interaction) {
 		const token = interaction.options.getString('token')
-		if (community !== null) {
+		if (token !== null) {
 			console.log('connect here');
 		} else {
 			// await interaction.reply('Hi! ' + interaction.user.username + '#' + interaction.user.discriminator + ', `ID: ' + interaction.user.id + '`');
