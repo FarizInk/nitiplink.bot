@@ -1,0 +1,1 @@
+docker build . -t farizink/nitiplink-bot-discord --platform=linux/amd64

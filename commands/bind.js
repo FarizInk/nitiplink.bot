@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, userMention } = require('discord.js');
+const axios = require('axios').default;
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -10,11 +11,25 @@ module.exports = {
 	async execute(interaction) {
 		const token = interaction.options.getString('token')
 		if (token !== null) {
-			console.log('connect here');
+			await axios.post(process.env.API_BASE_URL + '/bind-account', {
+				token: token,
+				user_id: interaction.user.id,
+			}, {
+				headers: {
+					'Bot-Key': process.env.NITIPLINK_KEY
+				}
+			})
+				.then(async function (response) {
+					await interaction.reply(`hey ${userMention(interaction.user.id)}, ${response.data.message}`);
+					setTimeout(() => interaction.deleteReply(), 5000);
+				})
+				.catch(async function (error) {
+					await interaction.reply(`hey ${userMention(interaction.user.id)}, ${error.response.data.message}`);
+					setTimeout(() => interaction.deleteReply(), 5000);
+				})
 		} else {
 			// await interaction.reply('Hi! ' + interaction.user.username + '#' + interaction.user.discriminator + ', `ID: ' + interaction.user.id + '`');
-
-			await interaction.reply(`hey ${userMention(interaction.user.id)} please insert token!`);
+			await interaction.reply(`hey ${userMention(interaction.user.id)}, please insert token!`);
 			setTimeout(() => interaction.deleteReply(), 5000);
 		}
 	},

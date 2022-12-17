@@ -70,7 +70,7 @@ client.on(Events.InteractionCreate, async interaction => {
       await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     }
   } else if (interaction.isModalSubmit()) {
-    if (interaction.customId === 'nitiplinkModal') {
+    if (interaction.customId.includes('nitiplinkModal')) {
       createLink(interaction);
     } else {
       return;

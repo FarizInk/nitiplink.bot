@@ -2,9 +2,9 @@
   "name": "nitiplink.bot",
   "version": "1.0.0",
   "description": "NitipLink discord bot",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
-    "bot": "nodemon index.js",
+    "bot": "nodemon bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -15,6 +15,7 @@
   "author": "farizink",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.2.1",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3"
   },

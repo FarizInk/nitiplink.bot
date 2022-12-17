@@ -1,0 +1,1 @@
+docker run --name nitiplink-bot-discord --platform linux/amd64 -d farizink/nitiplink-bot-discord

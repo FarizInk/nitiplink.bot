@@ -1,4 +1,5 @@
-const {hyperlink} = require('discord.js')
+const {hyperlink, userMention} = require('discord.js')
+const axios = require('axios').default;
 
 const createLink = async (interaction) => {
     // Get the data entered by the user
@@ -6,9 +7,28 @@ const createLink = async (interaction) => {
 	const note = interaction.fields.getTextInputValue('noteInput');
 	const tags = interaction.fields.getTextInputValue('tagsInput');
     const tagsToArray = tags !== '' ? tags.split(',') : [];
-	console.log({ link, note, tags, tagsToArray });
+	const community = interaction.customId.split('|')[1];
+	console.log({ community, link, note, tags, tagsToArray });
 
-    await interaction.reply(`Your ${hyperlink('link', 'https://discord.js.org/')} has been submited!`);
+	await axios.post(process.env.API_BASE_URL + '/create-link', {
+		url: link,
+		note: note,
+		tags: tagsToArray,
+		prefix: community,
+		user_id: interaction.user.id,
+	}, {
+		headers: {
+			'Bot-Key': process.env.NITIPLINK_KEY
+		}
+	})
+		.then(async function (response) {
+			await interaction.reply(`hey ${userMention(interaction.user.id)}, Your ${hyperlink('link', response.data.payload)} has been submited!`);
+			setTimeout(() => interaction.deleteReply(), 5000);
+		})
+		.catch(async function (error) {
+			await interaction.reply(`hey ${userMention(interaction.user.id)}, ${error.response.data.message}`);
+			setTimeout(() => interaction.deleteReply(), 5000);
+		})
 }
 
 module.exports = { createLink }
