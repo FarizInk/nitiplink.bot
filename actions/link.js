@@ -1,5 +1,6 @@
 const {hyperlink, userMention} = require('discord.js')
 const axios = require('axios').default;
+const { handleError } = require('../helpers');
 
 const createLink = async (interaction) => {
     // Get the data entered by the user

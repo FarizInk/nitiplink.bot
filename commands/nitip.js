@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, userMention } = require('discord.js');
 const axios = require('axios').default;
+const { handleError } = require('../helpers');
 
 module.exports = {
 	data: new SlashCommandBuilder()
