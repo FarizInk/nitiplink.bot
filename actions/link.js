@@ -26,7 +26,7 @@ const createLink = async (interaction) => {
 			await interaction.reply(`hey ${userMention(interaction.user.id)}, Your ${hyperlink('link', response.data.payload)} has been submited!`);
 			setTimeout(() => interaction.deleteReply(), 5000);
 		})
-		.catch(async () => await handleError(error, interaction))
+		.catch(async (error) => await handleError(error, interaction))
 }
 
 module.exports = { createLink }

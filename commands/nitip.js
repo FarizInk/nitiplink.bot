@@ -66,7 +66,7 @@ module.exports = {
 					// Show the modal to the user
 					await interaction.showModal(modal);
 				})
-				.catch(async () => await handleError(error, interaction))
+				.catch(async (error) => await handleError(error, interaction))
 		} else {
 			await interaction.reply(`hey ${userMention(interaction.user.id)}, community parameter must be filled!`);
 			setTimeout(() => interaction.deleteReply(), 5000);
