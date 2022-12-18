@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, userMention } = require('discord.js');
+const { handleError } = require('../helpers');
 const axios = require('axios').default;
 
 module.exports = {
@@ -23,10 +24,7 @@ module.exports = {
 					await interaction.reply(`hey ${userMention(interaction.user.id)}, ${response.data.message}`);
 					setTimeout(() => interaction.deleteReply(), 5000);
 				})
-				.catch(async function (error) {
-					await interaction.reply(`hey ${userMention(interaction.user.id)}, ${error.response.data.message}`);
-					setTimeout(() => interaction.deleteReply(), 5000);
-				})
+				.catch(async () => await handleError(error, interaction))
 		} else {
 			// await interaction.reply('Hi! ' + interaction.user.username + '#' + interaction.user.discriminator + ', `ID: ' + interaction.user.id + '`');
 			await interaction.reply(`hey ${userMention(interaction.user.id)}, please insert token!`);

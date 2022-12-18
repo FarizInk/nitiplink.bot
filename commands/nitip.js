@@ -65,16 +65,7 @@ module.exports = {
 					// Show the modal to the user
 					await interaction.showModal(modal);
 				})
-				.catch(async function (error) {
-					let errMsg = 'something wrong with server chan 🥺';
-					if (error.response.status === 422) {
-						errMsg = error.response.data.message
-					} else {
-						console.log(error.response.request.path, error.response.status, error.response.data?.message);
-					}
-					await interaction.reply(`hey ${userMention(interaction.user.id)}, ${errMsg}`);
-					setTimeout(() => interaction.deleteReply(), 5000);
-				})
+				.catch(async () => await handleError(error, interaction))
 		} else {
 			await interaction.reply(`hey ${userMention(interaction.user.id)}, community parameter must be filled!`);
 			setTimeout(() => interaction.deleteReply(), 5000);
